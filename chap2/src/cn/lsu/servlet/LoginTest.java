@@ -1,5 +1,13 @@
 package cn.lsu.servlet;
 
+import java.io.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 //import java.io.BufferedReader;
 //import java.io.IOException;
 //import java.io.InputStream;
@@ -16,7 +24,10 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
-class Login {
+//class Login {
+@WebServlet("/Login")
+public class LoginTest extends HttpServlet {
+	private static final long serialVersionUID = 1L;
     public static String loginurl = "http://ca.lsu.edu.cn/zfca/login?yhlx=user&login=0122579031373493728&url=#";
     static Cookie[] cookies = {};
 
@@ -27,9 +38,9 @@ class Login {
     // 消息发送的action
     String url = "http://my.lib.lsu.edu.cn/reader/redr_info.php#";
 
-    public void getUrlContent()
-            throws Exception {
-
+    //public void getUrlContent()
+            //throws Exception {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpClientParams httparams = new HttpClientParams();
         httparams.setSoTimeout(30000);
         httpClient.setParams(httparams);

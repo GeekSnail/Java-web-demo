@@ -34,12 +34,12 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         if(username.equals("admin") && password.equals("admin")){
             request.setAttribute("username", username);
-            RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");//¶¨Òå ½ÓÊÕ¿Í»§¶ËÇëÇó²¢½«Êı¾İ·¢ËÍµ½·şÎñÆ÷ÉÏJSPÎÄ¼şµÄ ¶ÔÏó
-            rd.forward(request, response); //½«ÇëÇó´ÓÒ»¸ö servlet ×ª·¢µ½·şÎñÆ÷ÉÏµÄÁíÒ»¸ö×ÊÔ´  JSP ÎÄ¼ş
+            RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Õ¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó²¢½ï¿½ï¿½ï¿½ï¿½İ·ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½JSPï¿½Ä¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            rd.forward(request, response); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ servlet ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ô´  JSP ï¿½Ä¼ï¿½
         } else {
-        	request.setAttribute("error", "ÓÃ»§Ãû»òÃÜÂë´íÎó£¬ÇëÖØĞÂÊäÈë£¡");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");//¶¨Òå ½ÓÊÕ¿Í»§¶ËÇëÇó²¢½«Êı¾İ·¢ËÍµ½·şÎñÆ÷ÉÏJSPÎÄ¼şµÄ ¶ÔÏó
-            rd.forward(request, response); //½«ÇëÇó´ÓÒ»¸ö servlet ×ª·¢µ½·şÎñÆ÷ÉÏµÄÁíÒ»¸ö×ÊÔ´  JSP ÎÄ¼ş
+        	request.setAttribute("error", "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼Œè¯·é‡è¯•ï¼");
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Õ¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó²¢½ï¿½ï¿½ï¿½ï¿½İ·ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½JSPï¿½Ä¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            rd.forward(request, response); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ servlet ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ô´  JSP ï¿½Ä¼ï¿½
         }
 	}
 
