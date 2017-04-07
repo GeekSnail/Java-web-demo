@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-登录用户：${sessionScope.user.name}
+
 </body>
 </html>
