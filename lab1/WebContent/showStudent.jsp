@@ -5,8 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>showStudent</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>😎  ${sessionScope.user.name}！</title>
 <style>
+#admin{ color: #999;}
 h2 { text-align: center; }
 a { text-decoration: none; color: #555; font-size: 14px;}
 table { text-align: center; margin: auto; border-spacing: 0; position: relative; padding-bottom: 1.5px;}
@@ -27,19 +29,27 @@ td input{ width: 57px; vertical-align: middle;}
 .addIn { display: none;}
 .qq {width:80px;}
 .qqWid {margin-left:10px;}
-#submit { padding:0; width: 37px; height: 23px; line-height: 23px;
+.btn { padding:0; width: 37px; height: 23px; line-height: 23px;
  border-radius:3px; border: 1px solid #ccc; margin: 0 5px 0 -3px;}
 .userId,.prompt { display: none; position: absolute; top: 30px; left: 0px; width: 75px; height: 20px; padding: 2px 4px;
     font-size: 13px; border: 1px solid #edc27a; color: #ad7415; box-shadow: 0 0 1px 1.5px #d9e217;
     background: rgb(254, 254, 164);}
+a.btn{display:inline-block;}
 table tr td:nth-child(2), table tr td:nth-child(3), table tr td:nth-child(4),
 #addInfo td:nth-of-type(3), #addInfo td:nth-of-type(4), #addInfo td:nth-of-type(5) { position: relative; }
+@media screen and (max-width: 400px) {
+    table tr td { min-width: 60px; padding: 5px 5px; }
+    .oldInfo{margin: 0 4px;}
+    td input { width: 50px;  }
+    a.btn { margin-top: 4px; }
+}
 </style>
 </head>
 <body>
+<div id="admin">夜深了，亲爱的 😎  ${sessionScope.user.name}！</div>
 <div>	
 	<table>
-	<thead><th colspan="5">学生信息</th></thead>
+	<thead><th colspan="5">学生信息表</th></thead>
 		<tr>
 			<td>学号</td>
 			<td>姓名</td>
@@ -67,8 +77,8 @@ table tr td:nth-child(2), table tr td:nth-child(3), table tr td:nth-child(4),
 			<td><input type="text" name="age" placeholder="年龄" required="required" class="addIn newInfo age"/><div class="prompt">年龄不合法.</div></td></td>
 			<td><input type="text" name="qq" placeholder="QQ" class="addIn newInfo qq"/><div class="prompt qqWid">QQ不合法.</div></td></td>
 			<td  class="addIn newInfo">
-				<input type="submit" id="submit">
-				<a id="cancel">取消</a>
+				<input type="submit" value="添加" id="submit" class="btn">
+				<a id="cancel" class="btn">取消</a>
 			</td>
 		</form>
 	</tr>
@@ -100,12 +110,7 @@ window.onload = function() {
 			newInfo[i].style.display = "inline-block";
 		}
 	}
-	submit.onclick = function() {
-		if(boolName&&boolAge&&boolQq){}
-		else {
-			return false;
-		}		
-	}
+
 	cancel.onclick = function(){
 		for(var i=0; i<newInfo.length; i++){
 			newInfo[i].style.display = "none";
@@ -125,7 +130,8 @@ window.onload = function() {
 					}
 				}
 				for(var j=i*8+1; j<i*8+6; j++){
-					oldInfo[j].style.display = "inline-block";
+					oldInfo[j].value = oldInfo[j].defaultValue;
+					oldInfo[j].style.display = "inline-block"; //显示输入框
 					if(oldInfo[j].previousSibling){
 						oldInfo[j].previousSibling.data = "";
 					}
@@ -169,18 +175,27 @@ window.onload = function() {
 			age[i].onblur = function(){
 				boolAge = checkAge(i);
 			}
-			qq[i].onblur = function(){
+			qq[i].onkeyup = function(){
 				boolQq = checkQq(i);
 			}
 		})(i);
 	}
-
+	submit.onclick = function() {
+		var a = checkQq(name.length-1);
+		if(a){
+			alert("😉"+" 添加成功！"); //emoji from : http://www.fhdq.net/emoji.html
+		} else {
+			alert("😪"+" 亲, 注意规范哦！");
+			return false;  //a=undefined or a=false
+		}
+				
+	}
 	function showTr(i){
 		for(var j=i*8+1; j<i*8+6; j++){
 			oldInfo[j].style.display = "none";
 			if(!oldInfo[j].nextSibling || oldInfo[j].nextSibling.tagName!="A"){  //过滤掉后面两个a标签
 				if(oldInfo[j].previousSibling){
-					oldInfo[j].previousSibling.data = oldInfo[j].value;
+					oldInfo[j].previousSibling.data = oldInfo[j].defaultValue;
 				}
 			}
 		}
@@ -249,6 +264,7 @@ window.onload = function() {
 			return true; 
 		}
 	}
+	var t;
 	function checkQq(i){
 		if(qq[i].value!=""){  //避免第一次学号失去焦点进入姓名时，学号又获得焦点，导致姓名空值却触发检查事件
 			var regex = new RegExp("[1-9][0-9]{4,}");
@@ -261,26 +277,33 @@ window.onload = function() {
 				}, 1000);
 				return false;
 			} 
-			createXMLHttpRequest();
-			var url = "checkQq?qq="+qq[i].value;
-			console.log(qq[i].value);
-			xmlHttp.open("GET", url, true);
-			xmlHttp.send(null);
-			xmlHttp.onreadystatechange = function() {
-				if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-					if(xmlHttp.responseText){
-						qq[i].nextSibling.innerHTML = "QQ已存在."
-						qq[i].nextSibling.style.display = "block";
-						qq[i].focus(); 
-						setTimeout(function(){
-							qq[i].nextSibling.style.display = "none";
-						}, 1000);
-						return false;
-					} 
+			if(qq[i].value!=qq[i].defaultValue){  //qq值未修改时，不执行检查
+				createXMLHttpRequest();
+				var url = "checkQq?qq="+qq[i].value;
+				xmlHttp.open("GET", url, true);
+				xmlHttp.send(null);
+				xmlHttp.onreadystatechange = function() {
+					if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+						if(xmlHttp.responseText){
+							qq[i].nextSibling.innerHTML = "QQ已存在."
+							qq[i].nextSibling.style.display = "block";
+							qq[i].focus(); 
+							setTimeout(function(){
+								qq[i].nextSibling.style.display = "none";
+							}, 13);
+							t = false; 
+							console.log("QQ已存在.");
+						} else {
+							t = true; 
+							console.log("QQ有效.");
+						}
+					}
 				}
+			} else if(name[i].value!=name[i].defaultValue || age[i].value!=age[i].defaultValue) { //保存前
+				t = true;
 			}
-			return true; 
 		}
+		return t; 
 	}
 	function createXMLHttpRequest() {
 	    //检查是否支持 ActiveXObject 控件（IE浏览器）
