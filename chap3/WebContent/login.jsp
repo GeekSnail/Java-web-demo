@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <title>Login</title>
 <style>
 	/*form{ width:175px; margin: auto; margin-top: 20%; text-align: center;}*/
@@ -12,7 +13,8 @@
 	form>div{ position: relative; }
 	input{ width: 175px; height: 30px; display: block; box-sizing: border-box; padding: 0 6px; border-radius: 3px;
     border: 1px #ccc solid; margin-bottom: 3px; color: #666;}
-    .info{ color: red; position: absolute; top: 0; left: 180px; line-height: 30px; margin: 0; width: 130px; text-align: left;}
+    .info{ font-size:14px; color: #ed5353; position: absolute; top: 0; left: 180px; line-height: 30px; margin: 0; width: 130px; text-align: left;}
+	.hint{  font-size:14px; color: #ed5353; }
 </style>
 </head>
 <body>
@@ -20,7 +22,7 @@
 		<div><input type="text" name="username" id="userId" placeholder="用户名"><span class="info"></span></div>
 		<div><input type="password" name="password" id="passwd" placeholder="密码"><span class="info"></span></div>
 		<input type="submit" value="登   录" >
-		${error}
+		<span class="hint">${error}</span>
 	</form>
 <script type="text/javascript">
 var xmlHttp;

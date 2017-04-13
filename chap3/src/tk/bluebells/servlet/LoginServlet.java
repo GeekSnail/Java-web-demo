@@ -64,12 +64,14 @@ public class LoginServlet extends HttpServlet {
 			User user = new User(name,pwd);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);		
-            RequestDispatcher rd = request.getRequestDispatcher("/");
-            rd.forward(request, response);
+            //RequestDispatcher rd = request.getRequestDispatcher("/");
+            //rd.forward(request, response);
+			response.sendRedirect("index.jsp");
 		} else {
-			request.setAttribute("error", "用户名或密码错误，请重新登录！");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);		
+			request.setAttribute("error", "用户名或密码错误，<br>请重新登录！");
+            //RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            //rd.forward(request, response);
+			response.sendRedirect("login.jsp");
 		}
 	}
 }

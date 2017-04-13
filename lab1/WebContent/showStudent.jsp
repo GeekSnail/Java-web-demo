@@ -30,7 +30,7 @@ td input{ width: 57px; vertical-align: middle;}
 .qq {width:80px;}
 .qqWid {margin-left:10px;}
 .btn { padding:0; width: 37px; height: 23px; line-height: 23px;
- border-radius:3px; border: 1px solid #ccc; margin: 0 5px 0 -3px;}
+ border-radius:3px; border: 1px solid #ccc; }
 .userId,.prompt { display: none; position: absolute; top: 30px; left: 0px; width: 75px; height: 20px; padding: 2px 4px;
     font-size: 13px; border: 1px solid #edc27a; color: #ad7415; box-shadow: 0 0 1px 1.5px #d9e217;
     background: rgb(254, 254, 164);}
@@ -182,7 +182,7 @@ window.onload = function() {
 	}
 	submit.onclick = function() {
 		var a = checkQq(name.length-1);
-		if(a){
+		if(boolName && boolAge && a){
 			alert("😉"+" 添加成功！"); //emoji from : http://www.fhdq.net/emoji.html
 		} else {
 			alert("😪"+" 亲, 注意规范哦！");
@@ -248,6 +248,7 @@ window.onload = function() {
 			} 
 			return true; 					
 		}
+		return false;
 	}
 	function checkAge(i){
 		if(age[i].value!=""){  //避免第一次学号失去焦点进入姓名时，学号又获得焦点，导致姓名空值却触发检查事件
@@ -301,6 +302,8 @@ window.onload = function() {
 				}
 			} else if(name[i].value!=name[i].defaultValue || age[i].value!=age[i].defaultValue) { //保存前
 				t = true;
+			} else {
+				t = false;
 			}
 		}
 		return t; 
